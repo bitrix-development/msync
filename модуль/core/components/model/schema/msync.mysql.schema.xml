@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="msync" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="msync" version="1.1">
+
+    <object class="mSyncCategoryData" table="msync_categories" extends="xPDOObject">
+        <field key="category_id" dbtype="integer" attributes="unsigned" precision="10" phptype="integer" null="false" default="0" index="pk" />
+
+        <field key="uuid_1c" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+        <field key="uuid" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+        <field key="level" dbtype="int" precision="4" attributes="unsigned" phptype="integer" null="true" />
+        <field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="false" default="0" />
+
+        <aggregate alias="Category" class="msCategory" local="id" foreign="id" cardinality="one" owner="foreign" />
+
+        <index alias="category" name="category" primary="true" unique="true" type="BTREE" >
+            <column key="category_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="uuid" name="uuid" primary="false" unique="false" type="BTREE" >
+            <column key="uuid" length="" collation="A" null="false" />
+        </index>
+    </object>
+
+	<object class="mSyncCategoryTemp" table="msync_categories_temp" extends="xPDOSimpleObject">
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="uuid" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+		<field key="parent_uuid" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+		<field key="level" dbtype="int" precision="4" attributes="unsigned" phptype="integer" null="true" />
+
+		<index alias="uuid" name="uuid" primary="false" unique="false" type="BTREE" >
+			<column key="uuid" length="" collation="A" null="false" />
+		</index>
+	</object>
+
+    <object class="mSyncProductData" table="msync_products" extends="xPDOObject">
+        <field key="product_id" dbtype="integer" attributes="unsigned" precision="10" phptype="integer" null="false" default="0" index="pk" />
+        <field key="uuid_1c" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+
+        <aggregate alias="Product" class="msProduct" local="id" foreign="id" cardinality="one" owner="foreign" />
+		<composite alias="Offers" class="mSyncOfferData" local="product_id" foreign="data_id" cardinality="many" owner="local"/>
+
+        <index alias="product" name="product" primary="true" unique="true" type="BTREE" >
+            <column key="product_id" length="" collation="A" null="false" />
+        </index>
+        <index alias="uuid_1c" name="uuid_1c" primary="false" unique="false" type="BTREE" >
+            <column key="uuid_1c" length="" collation="A" null="false" />
+        </index>
+	</object>
+
+	<object class="mSyncProductTemp" table="msync_products_temp" extends="xPDOSimpleObject">
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="article" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="manufacturer" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="images" dbtype="text" phptype="string" null="true" />
+		<field key="bar_code" dbtype="varchar" precision="255" phptype="string" null="false" />
+		<field key="description" dbtype="text" phptype="string" null="true" />
+		<field key="features" dbtype="text" phptype="string" null="true" />
+		<field key="properties" dbtype="text" phptype="string" null="true" />
+		<field key="uuid" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+		<field key="parent_uuid" dbtype="varchar" precision="74" phptype="string" null="true" default="" />
+		<field key="status" dbtype="varchar" precision="255" phptype="string" null="false" />
+
+		<index alias="uuid" name="uuid" primary="false" unique="false" type="BTREE" >
+			<column key="uuid" length="" collation="A" null="false" />
+		</index>
+	</object>
+
+	<object class="mSyncOfferData" table="msync_offers" extends="xPDOSimpleObject">
+		<field key="data_id" dbtype="integer" attributes="unsigned" precision="10" phptype="integer" null="false" default="0" />
+
+		<field key="uuid_1c" dbtype="varchar" precision="74" phptype="string" null="false" default="" />
+		<field key="article" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="barcode" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="name" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="base_unit" dbtype="text" phptype="string" />
+		<field key="price" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0"/>
+		<field key="count" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0"/>
+
+		<aggregate alias="ProductData" class="mSyncProductData" local="data_id" foreign="product_id" cardinality="one" owner="foreign" />
+		<composite alias="Options" class="mSyncOfferOption" local="id" foreign="offer_id" cardinality="many" owner="local"/>
+		<composite alias="Prices" class="mSyncOfferPrice" local="id" foreign="offer_id" cardinality="many" owner="local"/>
+
+		<index alias="uuid" name="uuid" primary="false" unique="false" type="BTREE" >
+			<column key="uuid_1c" length="" collation="A" null="false" />
+		</index>
+	</object>
+
+	<object class="mSyncOfferOption" table="msync_offer_options" extends="xPDOSimpleObject">
+		<field key="offer_id" dbtype="integer" attributes="unsigned" precision="10" phptype="integer" null="false" default="0" />
+		<field key="option" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="value" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+
+		<aggregate alias="OfferData" class="mSyncOfferData" local="offer_id" foreign="id" cardinality="one" owner="foreign" />
+
+		<index alias="offer" name="offer" primary="false" unique="false" type="BTREE" >
+			<column key="offer_id" length="" collation="A" null="false" />
+		</index>
+	</object>
+
+	<object class="mSyncOfferPrice" table="msync_offer_prices" extends="xPDOSimpleObject">
+		<field key="offer_id" dbtype="integer" attributes="unsigned" precision="10" phptype="integer" null="false" default="0" />
+		<field key="price_name" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="price_id" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="presentation" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="value" dbtype="decimal" precision="12,2" phptype="string" null="false" default="" />
+		<field key="currency" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="unit" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="factor" dbtype="decimal" precision="12,2" phptype="float" null="false" default="0" />
+
+		<aggregate alias="OfferData" class="mSyncOfferData" local="offer_id" foreign="id" cardinality="one" owner="foreign" />
+
+		<index alias="offer" name="offer" primary="false" unique="false" type="BTREE" >
+			<column key="offer_id" length="" collation="A" null="false" />
+		</index>
+	</object>
+
+	<object class="mSyncProductProperty" table="msync_product_property" extends="xPDOSimpleObject">
+		<field key="source" dbtype="varchar" precision="191" phptype="string" null="false" />
+		<field key="type" dbtype="tinyint" precision="1" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="target" dbtype="varchar" precision="191" phptype="string" null="false" />
+		<field key="active" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
+		<field key="default" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
+		<field key="is_multiple" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
+		<field key="is_primary" dbtype="tinyint" precision="1" attributes="unsigned" phptype="boolean" null="true" default="0" />
+
+		<index alias="source" name="source" primary="false" unique="false" type="BTREE" >
+			<column key="source" length="" collation="A" null="false" />
+		</index>
+		<index alias="target" name="target" primary="false" unique="false" type="BTREE" >
+			<column key="target" length="" collation="A" null="false" />
+		</index>
+	</object>
+
+</model>
