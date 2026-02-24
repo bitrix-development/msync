@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.2
+- https://www.phpmyadmin.net
+-
+- Хост: localhost
+- Время создания: Фев 23 2026 г., 23:34
+- Версия сервера: 5.7.35-38
+- Версия PHP: 7.4.33
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="host04_newlm" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="modx_msync_product_property">
+                CREATE TABLE `modx_msync_product_property` (
+                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                  `source` varchar(191) NOT NULL,
+                  `type` tinyint(1) unsigned DEFAULT '0',
+                  `target` varchar(191) NOT NULL,
+                  `active` tinyint(1) unsigned DEFAULT '0',
+                  `default` tinyint(1) unsigned DEFAULT '0',
+                  `is_multiple` tinyint(1) unsigned DEFAULT '0',
+                  `is_primary` tinyint(1) unsigned DEFAULT '0',
+                  PRIMARY KEY (`id`),
+                  KEY `source` (`source`),
+                  KEY `target` (`target`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - База данных: 'host04_newlm'
+    -->
+    <database name="host04_newlm">
+        <!-- Таблица modx_msync_product_property -->
+        <table name="modx_msync_product_property">
+            <column name="id">3</column>
+            <column name="source">Цена</column>
+            <column name="type">1</column>
+            <column name="target">price</column>
+            <column name="active">1</column>
+            <column name="default">0</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">4</column>
+            <column name="source">Количество</column>
+            <column name="type">2</column>
+            <column name="target">kolvo_tovara</column>
+            <column name="active">1</column>
+            <column name="default">0</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">5</column>
+            <column name="source">Штрихкод</column>
+            <column name="type">1</column>
+            <column name="target"></column>
+            <column name="active">0</column>
+            <column name="default">1</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">6</column>
+            <column name="source">Вес</column>
+            <column name="type">1</column>
+            <column name="target">weight</column>
+            <column name="active">1</column>
+            <column name="default">0</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">7</column>
+            <column name="source">Бренд</column>
+            <column name="type">1</column>
+            <column name="target">vendor</column>
+            <column name="active">0</column>
+            <column name="default">1</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">8</column>
+            <column name="source">Цвет</column>
+            <column name="type">1</column>
+            <column name="target">color</column>
+            <column name="active">1</column>
+            <column name="default">1</column>
+            <column name="is_multiple">1</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">9</column>
+            <column name="source">Полное наименование</column>
+            <column name="type">1</column>
+            <column name="target">pagetitle</column>
+            <column name="active">1</column>
+            <column name="default">0</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">1</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">10</column>
+            <column name="source">Размер</column>
+            <column name="type">1</column>
+            <column name="target">size</column>
+            <column name="active">1</column>
+            <column name="default">1</column>
+            <column name="is_multiple">1</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">11</column>
+            <column name="source">Ид</column>
+            <column name="type">2</column>
+            <column name="target">ID_ITEM</column>
+            <column name="active">1</column>
+            <column name="default">0</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+        <table name="modx_msync_product_property">
+            <column name="id">12</column>
+            <column name="source">Код</column>
+            <column name="type">1</column>
+            <column name="target">article</column>
+            <column name="active">1</column>
+            <column name="default">0</column>
+            <column name="is_multiple">0</column>
+            <column name="is_primary">0</column>
+        </table>
+    </database>
+</pma_xml_export>
